@@ -9,15 +9,37 @@ void InsertionSort(T* pArray, int nSize)
 	{
 		T curr = pArray[j];
 		int i = j - 1;
+		// exchange when curr < element
 		while ((i >= 0) && (curr < pArray[i]))
 		{
 			pArray[i + 1] = pArray[i];
 			i--;
 		}
+		// exchange last
 		pArray[i + 1] = curr;
 	}
 }
 
+// selection sort
+// O(n^2)
+template<typename T>
+void SelectionSort(T* pArray, int nSize)
+{
+	for (int i = 0; i < (nSize - 1); i++)
+	{
+		// find smallest
+		int smallest = i;
+		for (int j = (i + 1); j < nSize; j++)
+		{
+			if (pArray[j] < pArray[smallest])
+				smallest = j;
+		}
+		// exchange
+		T temp = pArray[i];
+		pArray[i] = pArray[smallest];
+		pArray[smallest] = temp;
+	}
+}
 
 // merge sort
 // O(n*log(n))
@@ -51,13 +73,16 @@ void MergeSort(T* pArray, int left, int right)
 	if (left < right)
 	{
 		int mid = (left + right) / 2;
+		// divide
 		MergeSort(pArray, left, mid);
 		MergeSort(pArray, mid + 1, right);
+		// merge
 		Merge(pArray, left, mid, right);
 	}
 }
 
 // binary search
+// recursive
 // O(log(n))
 template<typename T>
 int BinarySearch(T* pArray, T value, int left, int right)
