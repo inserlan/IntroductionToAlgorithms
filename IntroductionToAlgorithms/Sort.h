@@ -136,3 +136,59 @@ bool CheckSum(T* pArray, T value, int left, int right)
 	}
 	return false;
 }
+
+// bubble sort
+// O(n^2)
+template<typename T>
+void BubbleSort(T* pArray, int nSize)
+{
+	for (int i = 0; i < nSize; i++)
+	{
+		for (int j = (nSize - 1); j > i; j--)
+		{
+			if (pArray[j] < pArray[j - 1])
+			{
+				// exchange
+				T temp = pArray[j];
+				pArray[j] = pArray[j - 1];
+				pArray[j - 1] = temp;
+			}
+		}
+	}
+}
+
+// count inversions number of array
+template<typename T>
+int MergeCount(T* pArray, int left, int mid, int right)
+{
+	int number = 0;
+	int lpos = left, rpos = mid + 1;
+	// sort and put into temp array
+	while ((lpos <= mid) && (rpos <= right))
+	{
+		if (pArray[lpos] < pArray[rpos])
+		{
+			lpos++;
+		}
+		else
+		{
+			rpos++;
+			number++;
+		}
+	}
+	return number;
+}
+
+template<typename T>
+int InversionsNumberCount(T* pArray, int left, int right)
+{
+	int number = 0;
+	if (left < right)
+	{
+		int mid = (left + right) / 2;
+		number += InversionsNumberCount(pArray, left, mid);
+		number += InversionsNumberCount(pArray, mid + 1, right);
+		number += MergeCount(pArray, left, mid, right);
+	}
+	return number;
+}

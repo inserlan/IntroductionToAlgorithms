@@ -50,4 +50,16 @@ int main()
 		std::cout << "exist two elements in array whose sum is exactly 12\n";
 	else
 		std::cout << "don't exist two elements in array whose sum is exactly 12\n";
+
+	std::cout << "bubble sort ===================\n";
+	int nArrayBubble[] = { 1,3,5,6,4,2,5,9,7,4,5,3,32,4,3,2,4,3,32,65,8,7,54,88 };
+	BubbleSort(nArrayBubble, 24);
+	for (auto v : nArrayBubble)
+		std::cout << v << ' ';
+	std::cout << "\n";
+
+	std::cout << "inversions number count ===================\n";
+	int nArrayInver[] = { 1,3,5,6,4,2,5,9,7,4,5,3,32,4,3,2,4,3,32,65,8,7,54,88 };
+	int number = InversionsNumberCount(nArrayInver, 0, 23);
+	std::cout << number << "\n";
 }
