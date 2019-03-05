@@ -82,18 +82,37 @@ void MergeSort(T* pArray, int left, int right)
 }
 
 // binary search
+// iterative
+// O(log(n))
+template<typename T>
+int BinarySearchIterative(T* pArray, T value, int left, int right)
+{
+	while (right >= left)
+	{
+		int mid = (right + left) / 2;
+		if (pArray[mid] < value)
+			left = mid + 1;
+		else if (pArray[mid] > value)
+			right = mid - 1;
+		else
+			return mid;
+	}
+	return -1;
+}
+
+// binary search
 // recursive
 // O(log(n))
 template<typename T>
-int BinarySearch(T* pArray, T value, int left, int right)
+int BinarySearchRecursive(T* pArray, T value, int left, int right)
 {
 	if (right >= left)
 	{
 		int mid = (right + left) / 2;
 		if (pArray[mid] < value)
-			return BinarySearch(pArray, value, mid + 1, right);
+			return BinarySearchRecursive(pArray, value, mid + 1, right);
 		else if (pArray[mid] > value)
-			return BinarySearch(pArray, value, left, mid - 1);
+			return BinarySearchRecursive(pArray, value, left, mid - 1);
 		else
 			return mid;
 	}
@@ -101,6 +120,7 @@ int BinarySearch(T* pArray, T value, int left, int right)
 }
 
 // check sum
+// is exist two element in array, their sum equal to x
 // O(n*log(n))
 template<typename T>
 bool CheckSum(T* pArray, T value, int left, int right)
@@ -109,7 +129,7 @@ bool CheckSum(T* pArray, T value, int left, int right)
 	int size = right - left + 1;
 	for (int i = 0; i < size; i++)
 	{
-		if (BinarySearch(pArray, value - pArray[i], i + 1, right) != -1)
+		if (BinarySearchRecursive(pArray, value - pArray[i], i + 1, right) != -1)
 		{
 			return true;
 		}

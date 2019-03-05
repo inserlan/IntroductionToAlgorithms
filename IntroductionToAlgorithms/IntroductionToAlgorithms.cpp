@@ -33,11 +33,11 @@ int main()
 	for (auto v : nArrayBin)
 		std::cout << v << ' ';
 	std::cout << "\n";
-	int index = BinarySearch(nArrayBin, 1, 0, 17);
+	int index = BinarySearchIterative(nArrayBin, 1, 0, 17);
 	std::cout << "index of 1: " << index << "\n";
-	index = BinarySearch(nArrayBin, 34, 0, 17);
+	index = BinarySearchRecursive(nArrayBin, 34, 0, 17);
 	std::cout << "index of 34: " << index << "\n";
-	index = BinarySearch(nArrayBin, 88, 0, 17);
+	index = BinarySearchRecursive(nArrayBin, 88, 0, 17);
 	std::cout << "index of 88: " << index << "\n";
 
 	std::cout << "check sum ===================\n";
