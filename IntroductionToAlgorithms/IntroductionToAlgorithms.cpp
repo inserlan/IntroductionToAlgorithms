@@ -34,11 +34,11 @@ int main()
 	for (auto v : nArrayBin)
 		std::cout << v << ' ';
 	std::cout << "\n";
-	int index = BinarySearch(nArrayBin, 1, 0, 17);
+	int index = BinarySearchIterative(nArrayBin, 1, 0, 17);
 	std::cout << "index of 1: " << index << "\n";
-	index = BinarySearch(nArrayBin, 34, 0, 17);
+	index = BinarySearchRecursive(nArrayBin, 34, 0, 17);
 	std::cout << "index of 34: " << index << "\n";
-	index = BinarySearch(nArrayBin, 88, 0, 17);
+	index = BinarySearchRecursive(nArrayBin, 88, 0, 17);
 	std::cout << "index of 88: " << index << "\n";
 
 	std::cout << "check sum ===================\n";
@@ -51,11 +51,4 @@ int main()
 		std::cout << "exist two elements in array whose sum is exactly 12\n";
 	else
 		std::cout << "don't exist two elements in array whose sum is exactly 12\n";
-
-	std::cout << "heap sort ===================\n";
-	int nArrayHeap[] = { 1,3,5,6,4,2,5,9,7,4,5,3,32,4,3,2,4,3,32,65,8,7,54,88 };
-	HeapSort(nArrayHeap, 24);
-	for (auto v : nArrayHeap)
-		std::cout << v << ' ';
-	std::cout << "\n";
 }

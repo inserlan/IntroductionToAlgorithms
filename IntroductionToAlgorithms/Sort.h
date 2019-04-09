@@ -82,18 +82,37 @@ void MergeSort(T* pArray, int left, int right)
 }
 
 // binary search
+// iterative
+// O(log(n))
+template<typename T>
+int BinarySearchIterative(T* pArray, T value, int left, int right)
+{
+	while (right >= left)
+	{
+		int mid = (right + left) / 2;
+		if (pArray[mid] < value)
+			left = mid + 1;
+		else if (pArray[mid] > value)
+			right = mid - 1;
+		else
+			return mid;
+	}
+	return -1;
+}
+
+// binary search
 // recursive
 // O(log(n))
 template<typename T>
-int BinarySearch(T* pArray, T value, int left, int right)
+int BinarySearchRecursive(T* pArray, T value, int left, int right)
 {
 	if (right >= left)
 	{
 		int mid = (right + left) / 2;
 		if (pArray[mid] < value)
-			return BinarySearch(pArray, value, mid + 1, right);
+			return BinarySearchRecursive(pArray, value, mid + 1, right);
 		else if (pArray[mid] > value)
-			return BinarySearch(pArray, value, left, mid - 1);
+			return BinarySearchRecursive(pArray, value, left, mid - 1);
 		else
 			return mid;
 	}
@@ -101,6 +120,7 @@ int BinarySearch(T* pArray, T value, int left, int right)
 }
 
 // check sum
+// is exist two element in array, their sum equal to x
 // O(n*log(n))
 template<typename T>
 bool CheckSum(T* pArray, T value, int left, int right)
@@ -109,10 +129,66 @@ bool CheckSum(T* pArray, T value, int left, int right)
 	int size = right - left + 1;
 	for (int i = 0; i < size; i++)
 	{
-		if (BinarySearch(pArray, value - pArray[i], i + 1, right) != -1)
+		if (BinarySearchRecursive(pArray, value - pArray[i], i + 1, right) != -1)
 		{
 			return true;
 		}
 	}
 	return false;
+}
+
+// bubble sort
+// O(n^2)
+template<typename T>
+void BubbleSort(T* pArray, int nSize)
+{
+	for (int i = 0; i < nSize; i++)
+	{
+		for (int j = (nSize - 1); j > i; j--)
+		{
+			if (pArray[j] < pArray[j - 1])
+			{
+				// exchange
+				T temp = pArray[j];
+				pArray[j] = pArray[j - 1];
+				pArray[j - 1] = temp;
+			}
+		}
+	}
+}
+
+// count inversions number of array
+template<typename T>
+int MergeCount(T* pArray, int left, int mid, int right)
+{
+	int number = 0;
+	int lpos = left, rpos = mid + 1;
+	// sort and put into temp array
+	while ((lpos <= mid) && (rpos <= right))
+	{
+		if (pArray[lpos] < pArray[rpos])
+		{
+			lpos++;
+		}
+		else
+		{
+			rpos++;
+			number++;
+		}
+	}
+	return number;
+}
+
+template<typename T>
+int InversionsNumberCount(T* pArray, int left, int right)
+{
+	int number = 0;
+	if (left < right)
+	{
+		int mid = (left + right) / 2;
+		number += InversionsNumberCount(pArray, left, mid);
+		number += InversionsNumberCount(pArray, mid + 1, right);
+		number += MergeCount(pArray, left, mid, right);
+	}
+	return number;
 }
